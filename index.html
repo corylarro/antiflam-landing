@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antiflam — Know What Inflames You</title>
+    <meta name="description"
+        content="Scan your food. Track how you feel. Discover your personal inflammation triggers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #141210;
+            --bg-card: #1C1A17;
+            --bg-elevated: #242120;
+            --cream: #F5EDE3;
+            --sand: #C4B8A8;
+            --muted: #7A7068;
+            --terra: #C76B38;
+            --terra-dim: rgba(199, 107, 56, 0.15);
+            --green: #38A66F;
+            --green-dim: rgba(56, 166, 111, 0.12);
+            --amber: #D9A633;
+            --amber-dim: rgba(217, 166, 51, 0.12);
+            --coral: #D14740;
+            --coral-dim: rgba(209, 71, 64, 0.12);
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'Outfit', system-ui, sans-serif;
+            --radius: 14px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--cream);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            background: rgba(20, 18, 16, 0.8);
+            border-bottom: 1px solid rgba(196, 184, 168, 0.08);
+        }
+
+        .nav-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            color: var(--terra);
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .nav-right a {
+            font-size: 0.88rem;
+            font-weight: 400;
+            color: var(--sand);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
+        }
+
+        .nav-right a:hover {
+            color: var(--cream);
+        }
+
+        .dl-btn {
+            background: var(--terra) !important;
+            color: var(--cream) !important;
+            padding: 0.45rem 1.1rem !important;
+            border-radius: 8px;
+            font-weight: 500 !important;
+            font-size: 0.85rem !important;
+            transition: opacity 0.2s !important;
+        }
+
+        .dl-btn:hover {
+            opacity: 0.88;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 40% 55% at 30% 70%, rgba(199, 107, 56, 0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 35% 45% at 75% 30%, rgba(56, 166, 111, 0.04) 0%, transparent 70%);
+        }
+
+        .hero-layout {
+            max-width: 1080px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 5.5vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero-text h1 span {
+            color: var(--terra);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--sand);
+            line-height: 1.7;
+            max-width: 440px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--terra);
+            color: var(--cream);
+            padding: 0.85rem 1.8rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 24px rgba(199, 107, 56, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(199, 107, 56, 0.35);
+        }
+
+        .btn-secondary {
+            font-size: 0.9rem;
+            color: var(--sand);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(196, 184, 168, 0.3);
+            padding-bottom: 2px;
+            transition: color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            color: var(--cream);
+        }
+
+        .hero-note {
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* ── SCORE RING (hero) ── */
+        .ring-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(196, 184, 168, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ring-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -20%;
+            width: 140%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(199, 107, 56, 0.06), transparent 70%);
+            pointer-events: none;
+        }
+
+        .ring-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .ring-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .ring-wrap svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: rgba(196, 184, 168, 0.08);
+            stroke-width: 8;
+        }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--terra);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 502;
+            stroke-dashoffset: 502;
+            transition: stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ring-score {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring-score .num {
+            font-family: var(--sans);
+            font-size: 3.2rem;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--cream);
+        }
+
+        .ring-score .of {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.3rem;
+            letter-spacing: 0.08em;
+        }
+
+        .archetype-name {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 0.4rem;
+        }
+
+        .archetype-tag {
+            font-size: 0.85rem;
+            color: var(--sand);
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        /* ── TRIGGER PILLS (below ring card) ── */
+        .trigger-row {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.2rem;
+        }
+
+        .trigger-pill {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            padding: 0.3rem 0.7rem;
+            border-radius: 100px;
+        }
+
+        .trigger-pill.high {
+            background: var(--coral-dim);
+            color: var(--coral);
+        }
+
+        .trigger-pill.mod {
+            background: var(--amber-dim);
+            color: var(--amber);
+        }
+
+        /* ── SECTION UTILITY ── */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--terra);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            color: var(--sand);
+            max-width: 480px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ── HOW SECTION ── */
+        .how {
+            background: var(--bg-card);
+            border-top: 1px solid rgba(196, 184, 168, 0.06);
+            border-bottom: 1px solid rgba(196, 184, 168, 0.06);
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            margin-top: 3.5rem;
+            background: rgba(196, 184, 168, 0.06);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .how-step {
+            background: var(--bg-card);
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        .how-num {
+            font-family: var(--serif);
+            font-size: 2.8rem;
+            color: rgba(199, 107, 56, 0.2);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .how-step h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .how-step p {
+            font-size: 0.88rem;
+            color: var(--sand);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ── WHAT YOU LEARN ── */
+        .learn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .learn-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(196, 184, 168, 0.06);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+        }
+
+        .learn-card .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .learn-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+
+        .learn-card p {
+            font-size: 0.88rem;
+            color: var(--sand);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ── BOTTOM CTA ── */
+        .final-cta {
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(199, 107, 56, 0.04), transparent);
+            pointer-events: none;
+        }
+
+        .final-cta .section-title {
+            margin-bottom: 0.6rem;
+        }
+
+        .final-cta p {
+            margin: 0 auto 2rem;
+        }
+
+        /* ── BODY SIGNALS (HealthKit) ── */
+        .body-signals {
+            background: var(--bg);
+            border-top: 1px solid rgba(196, 184, 168, 0.06);
+        }
+
+        .signals-layout {
+            margin-top: 3rem;
+        }
+
+        .signal-strip {
+            background: var(--bg-card);
+            border: 1px solid rgba(196, 184, 168, 0.06);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .signal-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.3rem 1.8rem;
+        }
+
+        .signal-divider {
+            height: 1px;
+            background: rgba(196, 184, 168, 0.06);
+            margin: 0 1.8rem;
+        }
+
+        .signal-icon {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signal-info {
+            flex: 1;
+        }
+
+        .signal-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .signal-detail {
+            font-size: 0.82rem;
+            color: var(--sand);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .signal-val {
+            text-align: right;
+            min-width: 60px;
+        }
+
+        .val-num {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--cream);
+            line-height: 1;
+        }
+
+        .val-unit {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-left: 2px;
+            letter-spacing: 0.03em;
+        }
+
+        .signal-callout {
+            margin-top: 1.5rem;
+            padding: 1.8rem 2rem;
+            background: var(--terra-dim);
+            border: 1px solid rgba(199, 107, 56, 0.15);
+            border-radius: var(--radius);
+            border-left: 3px solid var(--terra);
+        }
+
+        .callout-quote {
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--cream);
+            margin-bottom: 0.6rem;
+        }
+
+        .callout-quote strong {
+            color: var(--terra);
+            font-weight: 600;
+            font-family: var(--sans);
+        }
+
+        .callout-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 2.5rem 2rem;
+            border-top: 1px solid rgba(196, 184, 168, 0.06);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--sand);
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: rgba(122, 112, 104, 0.6);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 800px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .how-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .learn-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-right a:not(.dl-btn) {
+                display: none;
+            }
+
+            .signal-item {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+                padding: 1.2rem 1.2rem;
+            }
+
+            .signal-detail {
+                display: none;
+            }
+
+            .signal-val {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .how-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── ENTRANCE ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-d1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-d2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-d3 {
+            transition-delay: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">antiflam</a>
+            <div class="nav-right">
+                <a href="#how">How it works</a>
+                <a href="#body">Body signals</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="#download" class="dl-btn">Get the app</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════ HERO ══════════════ -->
+    <section class="hero">
+        <div class="hero-layout">
+            <div class="hero-text reveal">
+                <h1>Your food is <span>talking.</span><br>Start listening.</h1>
+                <p>Scan what you eat. Check in with how you feel. Antiflam connects the dots between your meals, your
+                    symptoms, and your body — so you stop guessing and start knowing.</p>
+                <div class="hero-actions">
+                    <a href="#download" class="btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round">
+                            <path
+                                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79s-2 .77-3.27.82c-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87s2.26-1.07 3.8-.91c.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83" />
+                            <path
+                                d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11" />
+                        </svg>
+                        Download for iOS
+                    </a>
+                    <a href="#how" class="btn-secondary">See how it works</a>
+                </div>
+                <p class="hero-note">Free quiz &middot; Free barcode scanning &middot; No account needed</p>
+            </div>
+
+            <div class="ring-card reveal reveal-d2">
+                <div class="ring-label">Inflammation Risk Score</div>
+                <div class="ring-wrap">
+                    <svg viewBox="0 0 180 180">
+                        <circle class="ring-bg" cx="90" cy="90" r="80" />
+                        <circle class="ring-progress" cx="90" cy="90" r="80" id="scoreRing" />
+                    </svg>
+                    <div class="ring-score">
+                        <span class="num" id="scoreNum">0</span>
+                        <span class="of">OUT OF 100</span>
+                    </div>
+                </div>
+                <div class="archetype-name">The Gut Reactor</div>
+                <div class="archetype-tag">Your gut is the frontline of your inflammation response</div>
+                <div class="trigger-row">
+                    <span class="trigger-pill high">Dairy &middot; High</span>
+                    <span class="trigger-pill high">Refined Sugar &middot; High</span>
+                    <span class="trigger-pill mod">Gluten &middot; Moderate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ HOW ══════════════ -->
+    <section class="how" id="how">
+        <div class="section-inner">
+            <div class="section-label reveal">The Loop</div>
+            <div class="section-title reveal reveal-d1">Eat. Feel. Learn. Repeat.</div>
+            <div class="section-sub reveal reveal-d2">Most food apps tell you what to eat. Antiflam tells you what
+                <em>your body</em> actually reacts to.</div>
+
+            <div class="how-grid">
+                <div class="how-step reveal">
+                    <div class="how-num">1</div>
+                    <h3>Scan your food</h3>
+                    <p>Point your camera at a meal, ingredient, or barcode. AI breaks down every item and scores it
+                        0&ndash;10 for inflammation.</p>
+                </div>
+                <div class="how-step reveal reveal-d1">
+                    <div class="how-num">2</div>
+                    <h3>Log it</h3>
+                    <p>One tap saves it to your journal with the time, meal type, and score. Or type it in manually
+                        &mdash; we score that too.</p>
+                </div>
+                <div class="how-step reveal reveal-d2">
+                    <div class="how-num">3</div>
+                    <h3>Check in later</h3>
+                    <p>Two hours after you eat, a gentle ping asks: how do you feel? Bloated? Brain fog? Great? Rate it
+                        1&ndash;5 and note symptoms.</p>
+                </div>
+                <div class="how-step reveal reveal-d3">
+                    <div class="how-num">4</div>
+                    <h3>See what's yours</h3>
+                    <p>After a week, the insights engine shows your personal triggers. Not generic advice &mdash;
+                        patterns from <em>your</em> food and <em>your</em> body.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ WHAT YOU LEARN ══════════════ -->
+    <section>
+        <div class="section-inner">
+            <div class="section-label reveal">What surfaces</div>
+            <div class="section-title reveal reveal-d1">The things you can't feel<br>until you see them</div>
+
+            <div class="learn-grid">
+                <div class="learn-card reveal">
+                    <div class="dot" style="background:var(--coral)"></div>
+                    <h3>Trigger foods</h3>
+                    <p>"You report symptoms 83% of the time after eating dairy. On dairy-free days, your average feeling
+                        is 4.2 vs 2.8."</p>
+                </div>
+                <div class="learn-card reveal reveal-d1">
+                    <div class="dot" style="background:var(--green)"></div>
+                    <h3>Safe foods</h3>
+                    <p>Foods you eat regularly that never correlate with symptoms. Your personal green list, built from
+                        your own data.</p>
+                </div>
+                <div class="learn-card reveal reveal-d2">
+                    <div class="dot" style="background:var(--amber)"></div>
+                    <h3>Sleep &times; food interactions</h3>
+                    <p>"When you sleep under 6 hours, inflammatory foods hit 2&times; harder. Dairy + poor sleep =
+                        bloating 90% of the time."</p>
+                </div>
+                <div class="learn-card reveal reveal-d3">
+                    <div class="dot" style="background:var(--terra)"></div>
+                    <h3>Weekly trends</h3>
+                    <p>Your inflammation score, symptom frequency, average feeling, and HRV — all plotted week over week
+                        so you can see the trajectory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ BODY SIGNALS (HealthKit) ══════════════ -->
+    <section class="body-signals" id="body">
+        <div class="section-inner">
+            <div class="section-label reveal">Apple Health Integration</div>
+            <div class="section-title reveal reveal-d1">Your body keeps score.<br>We help you read it.</div>
+            <div class="section-sub reveal reveal-d2">Connect Apple Health and Antiflam pulls in the biometrics that
+                matter most for inflammation. No wearable required &mdash; just your iPhone and Apple Watch data.</div>
+
+            <div class="signals-layout reveal reveal-d2">
+                <div class="signal-strip">
+                    <div class="signal-item">
+                        <div class="signal-icon" style="background: rgba(120, 130, 220, 0.12);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7882DC"
+                                stroke-width="2" stroke-linecap="round">
+                                <path d="M3 12h4l3-9 4 18 3-9h4" />
+                            </svg>
+                        </div>
+                        <div class="signal-info">
+                            <div class="signal-name">Heart Rate Variability</div>
+                            <div class="signal-detail">Low HRV is a biomarker for systemic inflammation. We track it
+                                daily and correlate with what you ate.</div>
+                        </div>
+                        <div class="signal-val">
+                            <span class="val-num">42</span>
+                            <span class="val-unit">ms</span>
+                        </div>
+                    </div>
+
+                    <div class="signal-divider"></div>
+
+                    <div class="signal-item">
+                        <div class="signal-icon" style="background: rgba(100, 140, 220, 0.12);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#648CDC"
+                                stroke-width="2" stroke-linecap="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                        </div>
+                        <div class="signal-info">
+                            <div class="signal-name">Sleep Duration</div>
+                            <div class="signal-detail">Poor sleep amplifies inflammatory response. We show you which
+                                foods hit harder on low-sleep days.</div>
+                        </div>
+                        <div class="signal-val">
+                            <span class="val-num">8.3</span>
+                            <span class="val-unit">hrs</span>
+                        </div>
+                    </div>
+
+                    <div class="signal-divider"></div>
+
+                    <div class="signal-item">
+                        <div class="signal-icon" style="background: var(--coral-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--coral)"
+                                stroke-width="2" stroke-linecap="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </div>
+                        <div class="signal-info">
+                            <div class="signal-name">Resting Heart Rate</div>
+                            <div class="signal-detail">Elevated RHR can signal an active inflammatory response. Trends
+                                alongside your food data tell the story.</div>
+                        </div>
+                        <div class="signal-val">
+                            <span class="val-num">62</span>
+                            <span class="val-unit">bpm</span>
+                        </div>
+                    </div>
+
+                    <div class="signal-divider"></div>
+
+                    <div class="signal-item">
+                        <div class="signal-icon" style="background: var(--green-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)"
+                                stroke-width="2" stroke-linecap="round">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                            </svg>
+                        </div>
+                        <div class="signal-info">
+                            <div class="signal-name">Daily Steps</div>
+                            <div class="signal-detail">Movement is anti-inflammatory. We factor activity level into your
+                                daily inflammation picture.</div>
+                        </div>
+                        <div class="signal-val">
+                            <span class="val-num">9.2</span>
+                            <span class="val-unit">k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signal-callout reveal reveal-d3">
+                    <div class="callout-quote">"On days you slept under 6 hours and ate dairy, you reported symptoms
+                        <strong>90%</strong> of the time. On 7+ hour nights, only <strong>40%</strong>."</div>
+                    <div class="callout-label">Actual insight from the correlation engine</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ FINAL CTA ══════════════ -->
+    <section class="final-cta" id="download">
+        <div class="section-inner">
+            <div class="section-title reveal">Stop guessing.<br>Start scanning.</div>
+            <p class="section-sub reveal reveal-d1" style="margin: 0 auto 2rem; text-align: center;">Free to download.
+                No account. No email. Just open and scan.</p>
+            <a href="#" class="btn-primary reveal reveal-d2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <path
+                        d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79s-2 .77-3.27.82c-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87s2.26-1.07 3.8-.91c.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83" />
+                    <path
+                        d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11" />
+                </svg>
+                Download for iOS
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="mailto:support@antiflam.app">Contact</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Antiflam</p>
+    </footer>
+
+    <script>
+        // Score ring animation
+        const ring = document.getElementById('scoreRing');
+        const num = document.getElementById('scoreNum');
+        const target = 67;
+        const circumference = 2 * Math.PI * 80; // r=80
+        const offset = circumference - (target / 100) * circumference;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    ring.style.strokeDashoffset = offset;
+                    let current = 0;
+                    const step = () => {
+                        current += 1;
+                        if (current <= target) { num.textContent = current; requestAnimationFrame(step); }
+                    };
+                    setTimeout(step, 400);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        observer.observe(document.querySelector('.ring-card'));
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+        }, { threshold: 0.15 });
+        reveals.forEach(el => revealObserver.observe(el));
+    </script>
+
+</body>
+
+</html>
