@@ -185,6 +185,7 @@
         .btn-primary {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             background: var(--terra);
             color: var(--cream);
@@ -202,6 +203,12 @@
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 32px rgba(199, 107, 56, 0.35);
+        }
+
+        .btn-primary:disabled {
+            cursor: default;
+            opacity: 0.7;
+            transform: none;
         }
 
         .btn-secondary {
@@ -490,6 +497,58 @@
             margin: 0 auto 2rem;
         }
 
+        .waitlist-form {
+            width: min(100%, 520px);
+            margin: 0 auto;
+        }
+
+        .waitlist-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.75rem;
+        }
+
+        .waitlist-row input {
+            width: 100%;
+            min-height: 52px;
+            padding: 0 1rem;
+            border: 1px solid rgba(196, 184, 168, 0.16);
+            border-radius: 12px;
+            background: rgba(245, 237, 227, 0.06);
+            color: var(--cream);
+            font: 400 1rem var(--sans);
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .waitlist-row input::placeholder {
+            color: var(--muted);
+        }
+
+        .waitlist-row input:focus {
+            border-color: rgba(199, 107, 56, 0.72);
+            background: rgba(245, 237, 227, 0.09);
+        }
+
+        .waitlist-note {
+            max-width: 520px;
+            margin: 1rem auto 0;
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .waitlist-status {
+            min-height: 1.4rem;
+            margin-top: 0.9rem;
+            color: var(--green);
+            font-size: 0.88rem;
+        }
+
+        .waitlist-status.error {
+            color: var(--coral);
+        }
+
         /* ── BODY SIGNALS (HealthKit) ── */
         .body-signals {
             background: var(--bg);
@@ -670,6 +729,14 @@
             .signal-val {
                 min-width: auto;
             }
+
+            .waitlist-row {
+                grid-template-columns: 1fr;
+            }
+
+            .waitlist-row .btn-primary {
+                width: 100%;
+            }
         }
 
         @media (max-width: 500px) {
@@ -713,7 +780,7 @@
                 <a href="#how">How it works</a>
                 <a href="#body">Body signals</a>
                 <a href="privacy.html">Privacy</a>
-                <a href="#download" class="dl-btn">Get the app</a>
+                <a href="#waitlist" class="dl-btn">Join waitlist</a>
             </div>
         </div>
     </nav>
@@ -726,7 +793,7 @@
                 <p>Scan what you eat. Check in with how you feel. Antiflam connects the dots between your meals, your
                     symptoms, and your body — so you stop guessing and start knowing.</p>
                 <div class="hero-actions">
-                    <a href="#download" class="btn-primary">
+                    <a href="#waitlist" class="btn-primary">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round">
                             <path
@@ -734,11 +801,11 @@
                             <path
                                 d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11" />
                         </svg>
-                        Download for iOS
+                        Join the waitlist
                     </a>
                     <a href="#how" class="btn-secondary">See how it works</a>
                 </div>
-                <p class="hero-note">Free quiz &middot; Free barcode scanning &middot; No account needed</p>
+                <p class="hero-note">Coming to the App Store soon &middot; Early access opens first to the waitlist</p>
             </div>
 
             <div class="ring-card reveal reveal-d2">
@@ -936,21 +1003,24 @@
     </section>
 
     <!-- ══════════════ FINAL CTA ══════════════ -->
-    <section class="final-cta" id="download">
+    <section class="final-cta" id="waitlist">
         <div class="section-inner">
-            <div class="section-title reveal">Stop guessing.<br>Start scanning.</div>
-            <p class="section-sub reveal reveal-d1" style="margin: 0 auto 2rem; text-align: center;">Free to download.
-                No account. No email. Just open and scan.</p>
-            <a href="#" class="btn-primary reveal reveal-d2">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round">
-                    <path
-                        d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79s-2 .77-3.27.82c-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87s2.26-1.07 3.8-.91c.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83" />
-                    <path
-                        d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11" />
-                </svg>
-                Download for iOS
-            </a>
+            <div class="section-label reveal">Launching soon</div>
+            <div class="section-title reveal reveal-d1">Stop guessing.<br>Start scanning.</div>
+            <p class="section-sub reveal reveal-d2" style="margin: 0 auto 2rem; text-align: center;">Antiflam is coming
+                to the App Store soon. Join the waitlist and get the first invite when early access opens.</p>
+            <form class="waitlist-form reveal reveal-d3" action="https://formspree.io/f/xbdwjplq" method="POST">
+                <input type="hidden" name="_subject" value="New Antiflam waitlist signup">
+                <input type="hidden" name="source" value="antiflam_landing_page">
+                <div class="waitlist-row">
+                    <input type="email" name="email" placeholder="you@example.com" autocomplete="email"
+                        aria-label="Email address" required>
+                    <button type="submit" class="btn-primary">Get early access</button>
+                </div>
+                <p class="waitlist-status" id="waitlistStatus" role="status" aria-live="polite"></p>
+                <p class="waitlist-note">No spam. Just launch updates, early access, and the App Store link when
+                    Antiflam is ready.</p>
+            </form>
         </div>
     </section>
 
@@ -993,6 +1063,42 @@
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
         }, { threshold: 0.15 });
         reveals.forEach(el => revealObserver.observe(el));
+
+        // Keep Formspree submissions on-page when JavaScript is available.
+        const waitlistForm = document.querySelector('.waitlist-form');
+        const waitlistStatus = document.getElementById('waitlistStatus');
+
+        if (waitlistForm && waitlistStatus) {
+            waitlistForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const submitButton = waitlistForm.querySelector('button[type="submit"]');
+                const formData = new FormData(waitlistForm);
+
+                waitlistStatus.textContent = '';
+                waitlistStatus.classList.remove('error');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Joining...';
+
+                try {
+                    const response = await fetch(waitlistForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (!response.ok) throw new Error('Signup failed');
+
+                    waitlistForm.reset();
+                    waitlistStatus.textContent = "You're on the list. We'll send early access when Antiflam opens.";
+                    submitButton.textContent = 'Joined';
+                } catch {
+                    waitlistStatus.textContent = 'Something went wrong. Please try again in a moment.';
+                    waitlistStatus.classList.add('error');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Get early access';
+                }
+            });
+        }
     </script>
 
 </body>
