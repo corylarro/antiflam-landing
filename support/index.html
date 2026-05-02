@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support &mdash; Antiflam</title>
+    <meta name="description" content="Contact Antiflam support, report a bug, or send a feature request.">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="msapplication-TileColor" content="#FAF5EE">
+    <meta name="theme-color" content="#FAF5EE">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF5EE;
+            --sand: #F2EBE2;
+            --stone: #E8E1D8;
+            --text-primary: #1F1A14;
+            --text-secondary: #615750;
+            --text-tertiary: #8F8580;
+            --terracotta: #C76B38;
+            --terracotta-dark: #A85027;
+            --success: #277A4F;
+            --error: #B53A34;
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--stone);
+        }
+
+        nav .nav-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .back-link {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--terracotta);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 6rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.3rem, 7vw, 3.4rem);
+            line-height: 1.05;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+        }
+
+        .intro {
+            max-width: 620px;
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .support-form {
+            display: grid;
+            gap: 1.35rem;
+            padding: 2rem;
+            background: var(--sand);
+            border: 1px solid var(--stone);
+            border-radius: 12px;
+        }
+
+        .field {
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        label,
+        legend {
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            min-height: 48px;
+            padding: 0.8rem 0.9rem;
+            border: 1px solid #D8CEC4;
+            border-radius: 8px;
+            background: #FFFDF9;
+            color: var(--text-primary);
+            font: 400 1rem var(--font-body);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--terracotta);
+            box-shadow: 0 0 0 3px rgba(199, 107, 56, 0.16);
+        }
+
+        fieldset {
+            border: 0;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .request-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .request-option {
+            position: relative;
+        }
+
+        .request-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .request-option span {
+            display: flex;
+            min-height: 46px;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem 0.8rem;
+            border: 1px solid #D8CEC4;
+            border-radius: 8px;
+            background: #FFFDF9;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .request-option input:checked + span,
+        .request-option input:focus + span {
+            border-color: var(--terracotta);
+            background: rgba(199, 107, 56, 0.12);
+            color: var(--text-primary);
+        }
+
+        .hint {
+            color: var(--text-tertiary);
+            font-size: 0.82rem;
+        }
+
+        .button-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            min-height: 48px;
+            padding: 0.8rem 1.4rem;
+            border: 0;
+            border-radius: 8px;
+            background: var(--terracotta);
+            color: #FFFDF9;
+            font: 600 0.95rem var(--font-body);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            background: var(--terracotta-dark);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            cursor: default;
+            opacity: 0.7;
+            transform: none;
+        }
+
+        .form-status {
+            min-height: 1.3rem;
+            color: var(--success);
+            font-size: 0.9rem;
+        }
+
+        .form-status.error {
+            color: var(--error);
+        }
+
+        footer {
+            padding: 2rem;
+            border-top: 1px solid var(--stone);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        @media (max-width: 640px) {
+            nav,
+            main {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+
+            .support-form {
+                padding: 1.25rem;
+            }
+
+            .request-options {
+                grid-template-columns: 1fr;
+            }
+
+            .button-row button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">Antiflam</a>
+            <a href="/" class="back-link">&larr; Back to home</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Contact Antiflam</h1>
+        <p class="intro">Send a support question, report a bug, or share a feature request. Your message goes straight
+            to the Antiflam team.</p>
+
+        <form class="support-form" action="https://formspree.io/f/mbdwlnwq" method="POST">
+            <input type="hidden" name="_subject" value="New Antiflam support request">
+            <input type="hidden" name="source" value="antiflam_support_page">
+
+            <fieldset>
+                <legend>What can we help with?</legend>
+                <div class="request-options">
+                    <label class="request-option">
+                        <input type="radio" name="request_type" value="Support" required checked>
+                        <span>Support</span>
+                    </label>
+                    <label class="request-option">
+                        <input type="radio" name="request_type" value="Bug">
+                        <span>Bug</span>
+                    </label>
+                    <label class="request-option">
+                        <input type="radio" name="request_type" value="Feature Request">
+                        <span>Feature Request</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="field">
+                <label for="name">Name</label>
+                <input id="name" type="text" name="name" autocomplete="name" required>
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" autocomplete="email" required>
+            </div>
+
+            <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+                <p class="hint">For bugs, include the screen you were on and what you expected to happen.</p>
+            </div>
+
+            <div class="button-row">
+                <button type="submit">Send message</button>
+                <p class="form-status" id="supportStatus" role="status" aria-live="polite"></p>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        &copy; 2026 Zero to Build LLC. All rights reserved.
+    </footer>
+
+    <script>
+        const supportForm = document.querySelector('.support-form');
+        const supportStatus = document.getElementById('supportStatus');
+
+        if (supportForm && supportStatus) {
+            supportForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const submitButton = supportForm.querySelector('button[type="submit"]');
+                const formData = new FormData(supportForm);
+
+                supportStatus.textContent = '';
+                supportStatus.classList.remove('error');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+
+                try {
+                    const response = await fetch(supportForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (!response.ok) throw new Error('Support request failed');
+
+                    supportForm.reset();
+                    supportForm.querySelector('input[name="request_type"][value="Support"]').checked = true;
+                    supportStatus.textContent = 'Thanks. Your message has been sent.';
+                    submitButton.textContent = 'Sent';
+                } catch {
+                    supportStatus.textContent = 'Something went wrong. Please try again in a moment.';
+                    supportStatus.classList.add('error');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send message';
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

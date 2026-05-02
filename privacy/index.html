@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Antiflam</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="msapplication-TileColor" content="#FAF5EE">
+    <meta name="theme-color" content="#FAF5EE">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #FAF5EE;
+            --sand: #F2EBE2;
+            --stone: #E8E1D8;
+            --text-primary: #1F1A14;
+            --text-secondary: #615750;
+            --text-tertiary: #8F8580;
+            --terracotta: #C76B38;
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        nav {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--stone);
+        }
+
+        nav .nav-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .back-link {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--terracotta);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 6rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .effective-date {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        ul {
+            margin: 0.5rem 0 1rem 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--terracotta);
+        }
+
+        footer {
+            padding: 2rem;
+            border-top: 1px solid var(--stone);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">Antiflam</a>
+            <a href="/" class="back-link">&larr; Back to home</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Privacy Policy</h1>
+        <p class="effective-date">Effective date: April 20, 2026</p>
+
+        <p>Antiflam is a product of <strong>Zero to Build LLC</strong>, a limited liability company registered in the
+            State of Oregon ("we," "us," "our," or "the Company"). Antiflam ("the app") is an iOS application that helps
+            users identify inflammatory foods and track how their body responds to what they eat. We take your privacy
+            seriously. This policy explains what data we collect, how we use it, and your rights.</p>
+
+        <p><strong>Important:</strong> Antiflam is a wellness and informational tool only. It is not a medical device,
+            diagnostic tool, or substitute for professional medical advice. No data collected, displayed, or analyzed by
+            the app — including HealthKit biometrics, inflammation scores, or trigger insights — should be interpreted
+            as medical diagnosis or clinical guidance. Always consult a qualified healthcare provider for medical
+            advice.</p>
+
+        <h2>Data We Collect</h2>
+
+        <p><strong>Inflammation profile and quiz responses.</strong> When you take the onboarding quiz, your answers and
+            resulting inflammation profile are stored locally on your device using Apple's SwiftData framework. This
+            data never leaves your device.</p>
+
+        <p><strong>Food scans and journal entries.</strong> Photos you scan are sent to our secure API proxy, which
+            forwards them to OpenAI's vision API for ingredient identification and inflammation scoring. We do not store
+            your photos on our servers — they are processed in real time and discarded. The scan results (ingredient
+            names, scores, and suggestions) are stored locally on your device.</p>
+
+        <p><strong>Meal journal and check-in data.</strong> Your meal logs, symptom check-ins, feeling ratings, and
+            notes are stored locally on your device. This data is not transmitted to any server.</p>
+
+        <p><strong>Apple Health data.</strong> If you choose to connect Apple Health, the app reads sleep duration,
+            heart rate variability (HRV), resting heart rate, and step count. This data is used solely to display
+            correlations between your biometrics and food in the Insights dashboard. Health data is stored locally on
+            your device and is never transmitted to our servers or any third party. We do not use Apple Health data for
+            advertising, marketing, data mining, or any purpose other than displaying it to you within the app. You can
+            disconnect Apple Health at any time through Settings, and existing journal entries will retain their
+            biometric snapshots locally on your device. <strong>Biometric data displayed in the app is not clinically
+                validated and should not be used for medical decision-making.</strong></p>
+
+        <p><strong>Subscription information.</strong> If you subscribe to Antiflam Premium, your purchase is processed
+            by Apple through the App Store. We use RevenueCat to manage subscription status. RevenueCat receives an
+            anonymous user identifier and your subscription status — no personal information such as your name, email,
+            or payment details is shared with RevenueCat or us. See <a href="https://www.revenuecat.com/privacy/"
+                target="_blank" rel="noopener">RevenueCat's privacy policy</a> for details.</p>
+
+        <p><strong>Analytics.</strong> We may collect anonymous, aggregated usage data such as which features are used
+            and how often, quiz completion rates, and app session frequency. This data contains no personally
+            identifiable information and is used solely to improve the app.</p>
+
+        <h2>Data We Do Not Collect</h2>
+        <ul>
+            <li>We do not require an account or login. There is no email, name, or personal identifier collected.</li>
+            <li>We do not sell, rent, or share any user data with third parties for advertising or marketing.</li>
+            <li>We do not store your photos on any server.</li>
+            <li>We do not access your contacts, location, microphone (beyond system dictation), or any data beyond what
+                is described above.</li>
+        </ul>
+
+        <h2>How We Use Your Data</h2>
+        <ul>
+            <li>To score food items for inflammation using AI image analysis</li>
+            <li>To display your personal food journal, symptom tracking, and insights locally on your device</li>
+            <li>To correlate your food intake with biometric data from Apple Health (if connected)</li>
+            <li>To manage your subscription status</li>
+            <li>To improve the app through anonymous, aggregated usage analytics</li>
+        </ul>
+
+        <h2>Third-Party Services</h2>
+        <ul>
+            <li><strong>OpenAI</strong> — processes food photos for ingredient identification. Photos are sent via our
+                secure proxy and are not stored. See <a href="https://openai.com/policies/privacy-policy"
+                    target="_blank" rel="noopener">OpenAI's privacy policy</a>.</li>
+            <li><strong>Open Food Facts</strong> — provides product information for barcode scans. Only the barcode
+                number is sent. See <a href="https://world.openfoodfacts.org/privacy" target="_blank"
+                    rel="noopener">Open Food Facts' privacy policy</a>.</li>
+            <li><strong>RevenueCat</strong> — manages subscription status using an anonymous identifier. See <a
+                    href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener">RevenueCat's privacy
+                    policy</a>.</li>
+            <li><strong>Apple HealthKit</strong> — read-only access to sleep, HRV, heart rate, and steps. Data stays on
+                device.</li>
+        </ul>
+
+        <h2>Data Storage and Security</h2>
+        <p>All personal data (quiz results, meal logs, symptom check-ins, health data) is stored locally on your device
+            using Apple's SwiftData framework and is protected by your device's built-in security (passcode, Face ID, or
+            Touch ID).</p>
+        <p>Photo scans are transmitted to our API proxy over HTTPS (TLS encryption). Our proxy forwards the request to
+            OpenAI and returns the result — no data is logged or stored on the proxy server.</p>
+
+        <h2>Data Retention and Deletion</h2>
+        <p>Since your data is stored locally on your device, you have full control over it at all times. You can delete
+            all app data through Settings &rarr; Data &rarr; Reset All Data, or by deleting the app. There is no
+            server-side data to request deletion of.</p>
+
+        <h2>Children's Privacy</h2>
+        <p>Antiflam is not intended for use by children under 13. We do not knowingly collect any data from children.
+        </p>
+
+        <h2>Changes to This Policy</h2>
+        <p>We may update this privacy policy from time to time. Any changes will be reflected on this page with an
+            updated effective date. Continued use of the app after changes constitutes acceptance of the updated policy.
+        </p>
+
+        <h2>Contact</h2>
+        <p>For privacy questions, support requests, bug reports, or feature requests, please <a
+                href="/support/">contact us through the Antiflam support form</a>.</p>
+
+        
+    </main>
+
+    <footer>
+        &copy; 2026 Zero to Build LLC. All rights reserved.
+    </footer>
+
+</body>
+
+</html>
